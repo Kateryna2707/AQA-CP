@@ -3,9 +3,8 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   e2e: {
     chromeWebSecurity: false,
-        setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+    baseUrl: 'https://guest:welcome2qauto@qauto.forstudy.space/',
+
     viewportWidth: 1280,
     viewportHeight: 720,
     video: true,
@@ -14,6 +13,8 @@ module.exports = defineConfig({
     retries: {
       runMode: 2,
       openMode: 0
+    },
+    setupNodeEvents(on, config) {
     },
   },
 });
