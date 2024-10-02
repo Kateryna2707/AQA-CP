@@ -190,7 +190,7 @@ describe("Regstration", function () {
         cy.get('.modal-footer .btn-primary').should('be.disabled');
     });
 
-    it.only('Successfull registration', function () {
+    it('Successfull registration', function () {
         cy.get('#signupName').type('Kateryna');
         cy.get('#signupLastName').type('Tkachenko');
         cy.get('#signupEmail').type('kateryna.tkachenko2707@gmail.com');
