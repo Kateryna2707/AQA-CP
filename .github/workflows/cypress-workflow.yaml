@@ -4,11 +4,8 @@ jobs:
   cypress-run:
     runs-on: ubuntu-22.04
     name: Artifacts
-<<<<<<< HEAD
     container:
         image: cypress/browsers:latest
-=======
->>>>>>> c35cd6d07fd714abbda0cd1f4f1c67812d965cb9
     steps:
       - uses: actions/checkout@v4
       - uses: cypress-io/github-action@v6
