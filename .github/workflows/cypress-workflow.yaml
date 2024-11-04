@@ -27,7 +27,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome # running tests in Chrome
-          headless: true
 
       # Uploading the results and artifacts
       - name: Upload Cypress artifacts
