@@ -1,27 +1,39 @@
-name: Artifacts
-on: push
+name: Cypress Tests in Docker
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
-    name: Artifacts
-<<<<<<< HEAD
+    name: E2E on Chrome
     container:
-        image: cypress/browsers:latest
-=======
->>>>>>> c35cd6d07fd714abbda0cd1f4f1c67812d965cb9
+      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      options: --user 1001
+
     steps:
+      # Uploading repository code
       - uses: actions/checkout@v4
-      - uses: cypress-io/github-action@v6
-      # after the test run completes store videos and any screenshots
-      - uses: actions/upload-artifact@v3
-        # add the line below to store screenshots only on failures
-        # if: failure()
+
+      # Installing project dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Running Cypress tests
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-      - uses: actions/upload-artifact@v3
+          browser: chrome # running tests in Chrome
+
+      # Uploading the results and artifacts
+      - name: Upload Cypress artifacts
+        if: failure()
+        uses: actions/upload-artifact@v3
         with:
-          name: cypress-videos
-          path: cypress/videos
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos
